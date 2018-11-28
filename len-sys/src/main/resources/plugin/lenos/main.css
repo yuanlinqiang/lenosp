@@ -1,0 +1,47 @@
+.layui-input {
+  height: 30px;
+  width: 120px;
+}
+
+
+.lenos-search {
+  padding: 3px 10px;
+  position: relative;
+  top:2px;
+  z-index: 99;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  height: 30px;
+  overflow: hidden;
+}
+
+.layui-col-md12{
+  height:41px;margin-top:4px;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 1px;
+}
+.icon-position-button{
+  padding-right: 8px;
+  padding-left: 10px;
+}
+
+.layui-col-md13{
+  height:41px;margin-top:2px;
+  padding-top:3px;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.icon-position-no-button{
+  padding:1px 9px;
+  padding-left:12px;
+  height:36px;
+  margin-left:9px;
+  float: right;
+  margin-right: 10px;
+}
+.icon-position-no-button i {
+  font-size: 21px!important;
+}
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.SysLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="param" jdbcType="LONGVARCHAR" property="param" />
+  </resultMap>
+
+  <select id="selectListByPage" parameterType="com.len.entity.SysLog" resultMap="BaseResultMap">
+    SELECT *
+    from sys_log
+    <where>
+      <if test="userName!=null and userName!=''"> and user_name like '%${userName}%'</if>
+      <if test="type!=null and type!=''"> and type like '%${type}%'</if>
+    </where>
+    ORDER  BY create_time desc
+  </select>
+</mapper>

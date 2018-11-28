@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.UserLeaveMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.UserLeave">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="process_instance_Id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+
+  <select id="selectListByPage" parameterType="com.len.entity.UserLeave" resultMap="BaseResultMap">
+    SELECT *
+    from user_leave
+    <where>
+      <if test="userId!=null and userId!=''">and user_id=#{userId}</if>
+      <if test="beginTime!=null">
+        <![CDATA[   and DATE_FORMAT(begin_time, '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endTime!=null">
+        <![CDATA[  and DATE_FORMAT(end_time, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')    ]]>
+      </if>
+    </where>
+  </select>
+</mapper>

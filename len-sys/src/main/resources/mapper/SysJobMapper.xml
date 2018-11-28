@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.SysJobMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.SysJob">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="clazz_path" jdbcType="VARCHAR" property="clazzPath" />
+    <result column="job_desc" jdbcType="VARCHAR" property="jobDesc" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+
+  <select id="selectListByPage" parameterType="com.len.entity.SysJob" resultMap="BaseResultMap">
+    SELECT *
+    from sys_job
+    <where>
+      <if test="jobName!=null and jobName!=''"> and job_name like '%${jobName}%'</if>
+      <if test="clazzPath!=null and clazzPath!=''"> and clazz_path like '%${clazzPath}%'</if>
+      <if test="jobDesc!=null and jobDesc!=''"> and job_desc like '%${jobDesc}%'</if>
+      <if test="status!=null and status!=''"> and status =#{status}</if>
+    </where>
+  </select>
+</mapper>

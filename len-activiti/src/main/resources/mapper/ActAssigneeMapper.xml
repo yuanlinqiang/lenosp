@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ActAssigneeMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.ActAssignee">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="assignee" jdbcType="VARCHAR" property="assignee" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="assignee_type" jdbcType="INTEGER" property="assigneeType" />
+    <result column="activti_name" jdbcType="VARCHAR" property="activtiName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sid, assignee, role_id, assignee_type, activti_name
+  </sql>
+  <select id="selectListByPage" parameterType="com.len.entity.ActAssignee" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    from act_assignee
+    <where>
+      <if test="sid!=null and sid!=''"> and sid = #{sid}</if>
+      <if test="roleId!=null and roleId!=''"> and role_id = #{roleId}</if>
+    </where>
+  </select>
+
+  <delete id="deleteByNodeId" parameterType="java.lang.String">
+    delete from act_assignee
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+</mapper>

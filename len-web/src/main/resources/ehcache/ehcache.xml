@@ -1,0 +1,24 @@
+<ehcache>
+
+  <diskStore path="java.io.tmpdir"/>
+
+<defaultCache
+    maxElementsInMemory="10000"
+    eternal="false"
+    overflowToDisk="true"
+    timeToIdleSeconds="60"
+    timeToLiveSeconds="0"
+    diskPersistent="false"
+    diskExpiryThreadIntervalSeconds="120"/>
+
+  <!-- 登录记录缓存 锁定10分钟 -->
+  <cache name="loginRetryCache"
+    maxEntriesLocalHeap="2000"
+    eternal="false"
+    timeToIdleSeconds="60"
+    timeToLiveSeconds="0"
+    overflowToDisk="false"
+    statistics="true">
+  </cache>
+
+</ehcache>

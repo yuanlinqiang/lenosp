@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+  </resultMap>
+
+  <sql id="userColumn">
+    <trim suffix="" suffixOverrides=",">
+      <if test="id!=null">
+        id,
+      </if>
+      <if test="username!=null">
+        username,
+      </if>
+      <if test="password!=null">
+        password,
+      </if>
+      <if test="age!=null">
+        age,
+      </if>
+      <if test="email!=null">
+        email,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+  </sql>
+
+  <sql id="userValue">
+    <trim suffix="" suffixOverrides=",">
+      <if test="id!=null">
+        #{id},
+      </if>
+      <if test="username!=null">
+        #{username},
+      </if>
+      <if test="password!=null">
+        #{password},
+      </if>
+      <if test="age!=null">
+        #{age},
+      </if>
+      <if test="email!=null">
+        #{email},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </sql>
+
+
+
+  <select id="login" resultMap="BaseResultMap">
+    select
+    *
+    from sys_user
+    where username=#{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListByPage" parameterType="com.len.entity.SysUser" resultMap="BaseResultMap">
+    SELECT *
+    from sys_user
+    <where>
+      del_flag=0
+      <if test="username!=null and username!=''"> and username like '%${username}%'</if>
+      <if test="email!=null and email!=''"> and email like '%${email}%'</if>
+    </where>
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from sys_user
+  </select>
+  <insert id="add" parameterType="com.len.entity.SysUser" >
+    insert into sys_user(
+    <include refid="userColumn"/>
+    ) values (
+    <include refid="userValue"/>
+    )
+  </insert>
+
+  <delete id="delById" parameterType="java.lang.String">
+    delete from sys_user where id=#{id}
+  </delete>
+
+  <select id="checkUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(1) from sys_user where username=#{username}
+  </select>
+  <update id="rePass" parameterType="com.len.entity.SysUser">
+    update sys_user set password=#{password,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getUserByRoleId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select sysuser.id,sysuser.real_name,sysuser.username from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
+    limit #{page},#{limit}
+  </select>
+
+  <select id="countUserByRoleId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(1) from sys_user sysuser inner join sys_role_user roleuser on sysuser.id = roleuser.user_id and roleuser.role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

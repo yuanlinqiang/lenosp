@@ -1,0 +1,13 @@
+server.port: 8082
+spring:
+  application:
+    name: len-admin
+  jackson:
+    serialization:
+      indent_output: true
+  boot:
+    admin:
+      url: http://localhost:${server.port}
+endpoints:
+  health:
+    sensitive: false
